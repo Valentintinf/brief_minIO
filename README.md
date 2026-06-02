@@ -12,4 +12,4 @@ Line B à flux moyen
 Line C turbulente
 Line D avec pics
 Line E variable.
-Point d'attention : les schémas diffèrent légèrement d'une ligne à l'autre (casse des colonnes, présence ou absence du champ elapsed_time). Cette hétérogénéité est volontaire et constitue une difficulté centrale du brief.
+Point d'attention : les schémas diffèrent légèrement d'une ligne à l'autre (casse des colonnes, présence ou absence du champ elapsed_time). Cette hétérogénéité est volontaire et constitue une difficulté centrale du brief. dzaddzad

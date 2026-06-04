@@ -43,8 +43,8 @@ ingest_lineE  (1 fichier)           transform_lineE
 # Créer les dossiers montés dans les conteneurs
 mkdir -p dags logs
 
-# Définir l'UID pour éviter les problèmes de permissions sur Linux/WSL
-echo "AIRFLOW_UID=$(id -u)" >> .env
+# Donner les droits d'écriture au user airflow du conteneur (UID 50000)
+chmod 777 logs/
 ```
 
 ---

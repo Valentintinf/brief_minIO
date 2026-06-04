@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="jour1-datalake-architecture" name="Jour 1 - Architecture Data Lake">
+    <mxGraphModel dx="1488" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontStyle=1;fontColor=#111827;" value="Jour 1 (C18) — Architecture Data Lake industriel" vertex="1">
+          <mxGeometry height="50" width="1880" x="160" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#374151;" value="Flux principal : sources CSV → ingestion → raw → staging → curated → usages, avec archive, catalogue et sécurité en flux secondaires" vertex="1">
+          <mxGeometry height="30" width="1720" x="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sources-title" parent="1" style="text;html=1;rounded=1;whiteSpace=wrap;fontSize=16;fontStyle=1;align=center;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;" value="1. Sources CSV Zenodo" vertex="1">
+          <mxGeometry height="40" width="280" x="70" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="line-a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#1d4ed8;fontSize=11;align=left;spacing=8;" value="Line A — Stable&#xa;10 000 lignes | 5 colonnes&#xa;Temperature, pressure, elapsed_time&#xa;18 anomalies (0,18 %)" vertex="1">
+          <mxGeometry height="95" width="280" x="70" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="line-b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#1d4ed8;fontSize=11;align=left;spacing=8;" value="Line B — Flux moyen&#xa;5 000 lignes | 5 colonnes&#xa;temperature, pressure, Elapsed_time&#xa;50 anomalies (1,00 %)" vertex="1">
+          <mxGeometry height="95" width="280" x="70" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="line-c" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;align=left;spacing=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Line C — Turbulente&#xa;5 000 lignes | 4 colonnes&#xa;Temperature, pressure&#xa;Sans elapsed_time | 200 anomalies" vertex="1">
+          <mxGeometry height="95" width="280" x="70" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="line-d" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacing=8;" value="Line D — SpikeControl&#xa;5 000 lignes | 4 colonnes&#xa;temperature, Pressure&#xa;Sans elapsed_time | 15 anomalies" vertex="1">
+          <mxGeometry height="95" width="280" x="70" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="line-e" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacing=8;" value="Line E — SmoothRun&#xa;5 000 lignes | 4 colonnes&#xa;Temperature, pressure&#xa;Sans elapsed_time | 25 anomalies" vertex="1">
+          <mxGeometry height="95" width="280" x="70" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-warning" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontSize=11;fontStyle=1;align=left;spacing=10;" value="Hétérogénéités à traiter&#xa;• casse : Temperature/temperature, Pressure/pressure&#xa;• elapsed_time absent sur C, D, E&#xa;• schéma commun obligatoire avant analyse" vertex="1">
+          <mxGeometry height="120" width="280" x="70" y="825" as="geometry" />
+        </mxCell>
+        <mxCell id="collector" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;fontSize=13;fontStyle=1;align=center;" value="Collecte des fichiers&#xa;5 CSV locaux dans data/" vertex="1">
+          <mxGeometry height="90" width="210" x="440" y="445" as="geometry" />
+        </mxCell>
+        <mxCell id="ingestion-title" parent="1" style="text;html=1;rounded=1;whiteSpace=wrap;fontSize=16;fontStyle=1;align=center;fillColor=#f5f3ff;strokeColor=#7c3aed;fontColor=#4c1d95;" value="2. Ingestion &amp; orchestration" vertex="1">
+          <mxGeometry height="40" width="300" x="730" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="boto3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontSize=12;fontStyle=1;align=center;" value="Python / boto3&lt;br&gt;Upload initial&lt;br&gt;Création buckets&lt;br&gt;Contrôle MD5" vertex="1">
+          <mxGeometry height="120" width="240" x="760" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="airflow-ingest" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontSize=12;fontStyle=1;align=center;" value="Airflow DAG #1&#xa;Ingestion raw planifiée&#xa;Partitionnement : line=/year=/month=&#xa;Line A traitée en chunks" vertex="1">
+          <mxGeometry height="130" width="240" x="760" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="raw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;fontSize=12;fontStyle=1;align=left;spacing=10;" value="RAW / Bronze&#xa;Bucket : raw&#xa;CSV originaux inchangés&#xa;raw/production_lines/line=A/year=2025/month=05/&#xa;&#xa;But : vérité source rejouable" vertex="1">
+          <mxGeometry height="170" width="300" x="1120" y="389" as="geometry" />
+        </mxCell>
+        <mxCell id="transform" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#ca8a04;fontSize=12;fontStyle=1;align=center;" value="Airflow DAG #2&#xa;Harmonisation staging&#xa;• colonnes en minuscules&#xa;• typage strict&#xa;• label ∈ {0,1}&#xa;• elapsed_time nullable&#xa;Sortie : Parquet" vertex="1">
+          <mxGeometry height="220" width="250" x="1510" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="staging" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=12;fontStyle=1;align=left;spacing=10;" value="STAGING / Silver&#xa;Bucket : staging&#xa;Parquet harmonisé&#xa;Schéma cible : timestamp, line_id, temperature, pressure, elapsed_time, label, ingestion_ts, source_file_hash&#xa;&#xa;But : données contrôlées" vertex="1">
+          <mxGeometry height="180" width="310" x="1870" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="curated" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=12;fontStyle=1;align=left;spacing=10;" value="CURATED / Gold&#xa;Bucket : curated&#xa;Données prêtes analyse&#xa;Agrégats horaires, taux d&#39;anomalie, features ML&#xa;&#xa;But : maintenance prédictive" vertex="1">
+          <mxGeometry height="160" width="310" x="1870" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="archive" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e5e7eb;strokeColor=#4b5563;fontSize=12;fontStyle=1;align=center;" value="ARCHIVE&#xa;Bucket : archive&#xa;Règles ILM MinIO&#xa;Archivage après 180 jours&#xa;Suppression après 2 ans" vertex="1">
+          <mxGeometry height="130" width="250" x="1510" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="metadata" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1fae5;strokeColor=#059669;fontSize=12;fontStyle=1;align=center;" value="OpenMetadata&#xa;Catalogue + lignage&#xa;5 fiches lignes&#xa;propriétaire, source, fréquence, colonnes, label" vertex="1">
+          <mxGeometry height="130" width="300" x="1120" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="security" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#0f766e;fontSize=12;fontStyle=1;align=left;spacing=10;" value="Gouvernance &amp; sécurité&#xa;Policies MinIO par rôle&#xa;data-analyst : read curated&#xa;data-engineer : rw raw/staging/curated&#xa;admin : full access&#xa;SSE-S3 + logs d&#39;audit" vertex="1">
+          <mxGeometry height="170" width="300" x="1120" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="consumers" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=12;fontStyle=1;align=center;" value="Usages contrôlés&#xa;Analystes maintenance&#xa;Data scientists&#xa;Dashboards qualité&#xa;Futur scoring anomalies" vertex="1">
+          <mxGeometry height="130" width="310" x="1870" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="why" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fefce8;strokeColor=#eab308;fontSize=12;fontStyle=1;align=center;" value="Choix d&#39;architecture : 4 buckets séparés pour isoler les droits, appliquer des règles ILM distinctes et rendre le data lake lisible par un tiers." vertex="1">
+          <mxGeometry height="70" width="1030" x="730" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-line-a" edge="1" parent="1" source="line-a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.2;" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-line-b" edge="1" parent="1" source="line-b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.35;" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-line-c" edge="1" parent="1" source="line-c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-line-d" edge="1" parent="1" source="line-d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.65;" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-line-e" edge="1" parent="1" source="line-e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.8;" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-collector-boto3" edge="1" parent="1" source="collector" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7c3aed;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.35;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" target="boto3" value="upload initial">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-collector-airflow" edge="1" parent="1" source="collector" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7c3aed;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.65;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" target="airflow-ingest" value="runs planifiés">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-boto3-raw" edge="1" parent="1" source="boto3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7c3aed;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.35;fontSize=11;fontStyle=1;" target="raw" value="CSV + MD5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-airflow-raw" edge="1" parent="1" source="airflow-ingest" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7c3aed;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.7;fontSize=11;fontStyle=1;" target="raw" value="raw partitionné">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-raw-transform" edge="1" parent="1" source="raw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ea580c;strokeWidth=3;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" target="transform" value="lecture raw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-transform-staging" edge="1" parent="1" source="transform" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ca8a04;strokeWidth=3;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" target="staging" value="Parquet harmonisé">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-staging-curated" edge="1" parent="1" source="staging" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#16a34a;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=11;fontStyle=1;" target="curated" value="agrégats / features ML">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-curated-consumers" edge="1" parent="1" source="curated" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#16a34a;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=11;fontStyle=1;" target="consumers" value="accès contrôlé">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-curated-archive" edge="1" parent="1" source="curated" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#64748b;strokeWidth=2;dashed=1;endArrow=block;endFill=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;fontSize=11;fontStyle=1;" target="archive" value="ILM 180j / 2 ans">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-raw-metadata" edge="1" parent="1" source="raw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#059669;strokeWidth=2;dashed=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.35;entryY=0;fontSize=11;fontStyle=1;" target="metadata" value="lignage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-staging-metadata" edge="1" parent="1" source="staging" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#059669;strokeWidth=2;dashed=1;endArrow=block;endFill=1;exitX=0;exitY=1;entryX=0.75;entryY=0;fontSize=11;fontStyle=1;" target="metadata" value="catalogue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-security-raw" edge="1" parent="1" source="security" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0f766e;strokeWidth=2;dashed=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=11;fontStyle=1;" target="raw" value="policies + chiffrement + audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

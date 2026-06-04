@@ -89,17 +89,17 @@ Structure proposée :
 ```text
 raw/
   production_lines/
-    line=A/year=2025/month=05/LineA_Stable_10K.csv
-    line=B/year=2025/month=04/LineB_Flux.csv
-    line=C/year=2025/month=03/LineC_Turbulent.csv
-    line=D/year=2025/month=02/LineD_SpikeControl.csv
-    line=E/year=2025/month=01/LineE_SmoothRun.csv
+    lineA/year=2025/month=05/LineA_Stable_10K.csv
+    lineB/year=2025/month=04/LineB_Flux.csv
+    lineC/year=2025/month=03/LineC_Turbulent.csv
+    lineD/year=2025/month=02/LineD_SpikeControl.csv
+    lineE/year=2025/month=01/LineE_SmoothRun.csv
 ```
 
 Justification :
 
 - la donnée brute reste rejouable en cas d'erreur de transformation ;
-- le partitionnement `line=/year=/month=` limite les scans inutiles ;
+- le partitionnement par ligne puis `year=/month=` limite les scans inutiles ;
 - les hash MD5 permettent de vérifier l'intégrité après upload.
 
 ### 3.2 Couche `staging`

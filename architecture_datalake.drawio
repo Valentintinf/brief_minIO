@@ -1,10 +1,10 @@
 <mxfile host="app.diagrams.net" agent="Codex">
   <diagram id="jour1-datalake-architecture" name="Jour 1 - Architecture Data Lake">
-    <mxGraphModel dx="1488" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="2175" dy="1143" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontStyle=1;fontColor=#111827;" value="Jour 1 (C18) — Architecture Data Lake industriel" vertex="1">
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontStyle=1;fontColor=#111827;" value="Architecture Data Lake industriel" vertex="1">
           <mxGeometry height="50" width="1880" x="160" y="30" as="geometry" />
         </mxCell>
         <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#374151;" value="Flux principal : sources CSV → ingestion → raw → staging → curated → usages, avec archive, catalogue et sécurité en flux secondaires" vertex="1">

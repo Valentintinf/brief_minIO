@@ -1,0 +1,13 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# MinIO runtime data (données persistées par Docker, non reproductibles via Git)
+minio-data/
+
+# Manifests générés à l'exécution
+JOUR2_UPLOAD_MANIFEST.md
+
+# Windows/WSL metadata
+*.Zone.Identifier

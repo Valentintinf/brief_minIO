@@ -9,5 +9,11 @@ minio-data/
 # Manifests générés à l'exécution
 JOUR2_UPLOAD_MANIFEST.md
 
+# Logs Airflow
+logs/
+
+# Variables d'environnement locales
+.env
+
 # Windows/WSL metadata
 *.Zone.Identifier

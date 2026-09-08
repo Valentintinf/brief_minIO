@@ -34,14 +34,47 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+      # ── Jour 6-7 (C21) — KMS interne pour le chiffrement SSE-S3 ─────────────
+      # SSE-S3 exige un KMS : MinIO en fournit un, à clé statique, suffisant
+      # hors production. Format « nom-de-clé:clé-32-octets-en-base64 ».
+      # Clé de démonstration, à surcharger dans .env pour tout autre usage :
+      #   MINIO_KMS_SECRET_KEY=datalake-key:$(openssl rand -base64 32)
+      # Perdre cette clé rend les objets chiffrés définitivement illisibles.
+      MINIO_KMS_SECRET_KEY: ${MINIO_KMS_SECRET_KEY:-datalake-key:oMvLtNndBU6f3VkMVCkY39r4S1Q+52pCVuuDrUSMJZc=}
+      # ── Journal d'audit : chaque appel S3 est posté au collecteur ───────────
+      MINIO_AUDIT_WEBHOOK_ENABLE_datalake: "on"
+      MINIO_AUDIT_WEBHOOK_ENDPOINT_datalake: http://audit-collector:9999/audit
     volumes:
       - ./minio-data:/data
+    # MinIO refuse de démarrer si la cible du webhook d'audit est injoignable
+    depends_on:
+      audit-collector:
+        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 15s
+    restart: unless-stopped
+
+  # ── Collecteur des logs d'audit MinIO (Jours 6-7) ───────────────────────────
+  # MinIO ne journalise pas dans un fichier : il POSTe chaque appel S3 sur un
+  # webhook. Ce service reçoit ces événements et les écrit en JSON Lines.
+  audit-collector:
+    image: python:3.12-slim
+    container_name: minio-audit-collector
+    command: python /app/audit_collector.py --port 9999 --output /audit-logs/audit.jsonl
+    volumes:
+      - ./audit_collector.py:/app/audit_collector.py:ro
+      - ./audit-logs:/audit-logs
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request;urllib.request.urlopen('http://localhost:9999/')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     restart: unless-stopped
 
   # ── Base de métadonnées Airflow ─────────────────────────────────────────────

@@ -16,4 +16,10 @@ logs/
 .env
 
 # Windows/WSL metadata
-*.Zone.Identifier
+*Zone.Identifier
+
+# OpenMetadata (Jour 5)
+openmetadata-volume/
+
+# Logs d'audit MinIO (Jours 6-7)
+audit-logs/

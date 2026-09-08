@@ -175,8 +175,8 @@ Mesures associées :
 Le diagramme technique est disponible dans :
 
 ```text
-architecture_datalake_v2.drawio   ← version finale
-architecture_datalake.drawio      ← version initiale (conservée)
+architecture_datalake.drawio      ← schéma source, à ouvrir dans draw.io
+architecture_datalake.drawio.svg  ← export SVG, consultable sans outil
 ```
 
 Il contient :

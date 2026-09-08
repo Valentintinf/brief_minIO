@@ -15,7 +15,8 @@ curated/    Données prêtes à l'analyse métier
 archive/    Données archivées à 180 j, supprimées à 2 ans (ILM MinIO + DAG)
 ```
 
-Schéma technique détaillé : [architecture_datalake_v2.drawio](architecture_datalake_v2.drawio)
+Schéma technique détaillé : [architecture_datalake.drawio](architecture_datalake.drawio)
+(export consultable sans outil : [architecture_datalake.drawio.svg](architecture_datalake.drawio.svg))
 
 ---
 
@@ -147,8 +148,8 @@ brief_minIO/
 ├── logs/                          ← Logs Airflow (ignorés par git)
 ├── minio-data/                    ← Données MinIO persistées (ignorées par git)
 ├── audit-logs/                    ← Journal d'audit MinIO (ignoré par git)
-├── architecture_datalake.drawio   ← Schéma v1
-├── architecture_datalake_v2.drawio← Schéma v2 (version finale)
+├── architecture_datalake.drawio   ← Schéma d'architecture (source draw.io)
+├── architecture_datalake.drawio.svg ← Export SVG du schéma
 ├── docker-compose.yml             ← Infrastructure data lake
 ├── docker-compose.openmetadata.yml← Overlay catalogue OpenMetadata
 ├── upload_to_minio.py             ← Script Jour 2 (upload + intégrité MD5)
@@ -177,7 +178,7 @@ brief_minIO/
 
 | Compétence | Livrable | Détail |
 |---|---|---|
-| C18 | Architecture + schéma draw.io | Analyse des 5 lignes, choix Medallion, `architecture_datalake_v2.drawio` |
+| C18 | Architecture + schéma draw.io | Analyse des 5 lignes, choix Medallion, `architecture_datalake.drawio` |
 | C19 | MinIO, buckets, policies, upload MD5 | 4 buckets créés, policies différenciées par bucket, intégrité vérifiée |
 | C19 | DAGs Airflow ingestion + staging | DAG #1 raw partitionné, LineA en chunks, DAG #2 Parquet snappy harmonisé |
 | C20 | Catalogue OpenMetadata | 5 fiches complètes, 8 colonnes documentées chacune, glossaire, pipeline planifié |

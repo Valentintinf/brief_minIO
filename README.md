@@ -140,7 +140,10 @@ Politique complète : [JOUR6_GOUVERNANCE.md](JOUR6_GOUVERNANCE.md)
 
 ```
 brief_minIO/
-├── data/                          ← CSV sources (non commités)
+├── RAPPORT.md                     ← Rapport professionnel (livrable C18–C21)
+├── JOUR8_AUTO_EVALUATION.md       ← Auto-évaluation par critère de performance
+├── JOUR8_DEMO.md                  ← Mémo de la démo de restitution (15 min)
+├── data/                          ← CSV sources (Zenodo)
 ├── dags/
 │   ├── dag_raw_ingestion.py       ← DAG #1 : ingestion vers raw/
 │   ├── dag_staging_transform.py   ← DAG #2 : transformation vers staging/
@@ -186,3 +189,5 @@ brief_minIO/
 | C21 | Comptes et policies différenciées | 3 comptes de service, 48 droits vérifiés empiriquement |
 | C21 | Chiffrement et audit | SSE-S3 sur les 4 buckets, journal d'audit collecté et analysé |
 | C21 | Politique de gouvernance | Matrice des droits, RACI, conditions d'octroi, signaux de détection |
+| C18–C21 | Rapport professionnel | [RAPPORT.md](RAPPORT.md) — contexte, analyse, architecture, arbitrages, limites |
+| C18–C21 | Auto-évaluation | [JOUR8_AUTO_EVALUATION.md](JOUR8_AUTO_EVALUATION.md) — 16 critères de performance positionnés |
